@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<title>Document</title>
+	
+</head>
+<body>
+	<div class="main-container">
+		<div class="hero-sec">
+			<div class="main-sec">
+				<h1 class="main-heading">AsphaltAlchemy</h1>
+				<div class="vertical-box">
+					<p class="as">
+						アスファルト
+					</p>
+				</div>
+				<div class="circle">
+					<div class="half-upper">
+					</div><div class="oval"></div>
+					<div class="oval1"></div>
+					<div class="st-line"></div>
+					<div class="oval2"></div>
+
+					<div class="logo">
+
+					</div>
+
+					<div class="half-lower"></div>
+					<!-- <div class="lower-oval"></div> -->
+					<div class="st-line2"></div>
+				</div>
+				<div class="vertical-box2">
+					<p class="as">
+						錬金術
+						<!-- ア ル ケ ミ ー -->
+					</p>
+				</div>
+				
+			</div>
+			<div class="nav-bar">
+					<p class="brand-font">
+						AsphaltAlchemy
+					</p>
+					<div class="bar-bar">
+					</div>
+					<div class="links">
+							<ul class="nav-links">
+								<a href="{{ url_for('views.home') }}" class="nav-link" id="home">home</a>
+								<a href="{{ url_for('views.gallery')}}" class="nav-link" id="query">gallery</a>
+								<a href="{{ url_for('views.products')}}" class="nav-link" id="product">product</a>
+								<a href="https://www.instagram.com/asphalt_alchemy_/" class="nav-link" id="connect">connect with us</a>
+								<a href="{{ url_for('auth.login')}}" class="nav-link" id="login">login</a>
+							</ul>
+						</div>
+				</div>
+		</div>
+		<div class="second-sec">
+			<div class="brand-info">
+					<p class="info-aa">
+						Asphalt Alchemy is a clothing brand that transforms
+						street style into art. We provide the best quality 
+						product, We've shipped 500+ clothing throught out 
+						this month. We are based in Dharan.
+					</p>
+				</div>
+			<div class="why-us">
+				<div class="con1">
+					<div class="con1-img">
+						<img class="con1-img1" src="{{ url_for('static', filename='images/img1.jpeg') }}" alt="">
+					</div>
+				</div>
+				<div class="con2">
+					<div class="con2-sec">
+						<div class="small-font-line">
+						<h1 class="info">
+							INFO
+						</h1>
+						</div>
+						<div class="info-second-sec">
+							<div class="space"></div>
+							<p class="con2-info">
+							Asphalt Alchemy is based in Dharan and focuses on providing 
+							the high quality printed outfits in an affordable price. We know 
+							what  our customers want and we provide them.
+							</p>
+							<div class="space"></div>
+							<p class="con2-info">
+							We sell per-printed outfit and also take custom orders.
+							For pre-printed orders it'll take X days and for custom 
+							orders it'll take X days to deliver. We can and have shipped
+							our clothings all-over the Nepal.
+						</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="third-sec">
+			<div class="col1">
+				<div class="col1-cont1">
+					<h1 class="why">
+							Why us?
+					</h1>
+					<div class="small-line">
+					</div>
+				</div>
+				<div class="col1-cont2">
+					<div class="space"></div>
+					<p class="why-text">
+						We provide what you need and you provide us what we need (i.e customers)
+						and also money, cause not everthing is free. Lorem ipsum dolor sit amet 
+						consectetur adipisicing elit. 
+						</p>
+						<div class="space"></div>
+						<p class="why-text"> Veritatis repellat soluta nostrum. Iusto nemo
+						 sequi est quibusdam sunt libero omnis fugiat excepturi. Odio, quos. Enim 
+						 voluptas quisquam excepturi, quasi eum reiciendis rem cupiditate iusto! Tenetur,
+						  nesciunt commodi. Commodi ipsam nulla labore sed maxime. In numquam error unde enim,
+						   hic possimus?
+					</p>
+				</div>
+			</div>
+			<div class="col2">
+				<div class="img-s">
+					<div class="con1-img2">
+					<img src="{{ url_for('static', filename='images/img3.png') }}" alt="" class="tsimg">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="cont1">
+				<div class="logo-divv">
+				</div>
+				<div class="footer-text">
+					<h1 class="f-h">
+						Contact us:
+					</h1>
+					<div class="space1"></div>
+					<ul class="conta">
+						<p class="c">phone1</p>
+						<br>
+						<p class="c">phone2</p>
+						<br>
+						<p class="c">email</p>
+					</ul>
+				</div>
+			</div>
+			<div class="cont2">
+				<p class="c">WEb by <a href="https://www.instagram.com/sudo__.hehyuwal/" class="c">@includeYuwal</a></p>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

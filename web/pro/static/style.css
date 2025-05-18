@@ -1,0 +1,558 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+*
+{
+    padding: 0;
+    margin: 0;
+}
+.main-container
+{
+    width: 100%;
+    height: 2400px;
+    position: relative;
+}
+.hero-sec
+{
+    width: 100%;
+    height: 795px;
+    /* margin: 0 5%; */
+    background: #F4F4F2;
+}
+.main-sec
+{
+    width: 90%;
+    height: 750px;
+    margin: 0 5%;
+    display: flex;
+    /* position: relative; */
+    /* background: antiquewhite; */
+    /* z-index: 0; */
+}
+.main-heading
+{
+    font-size: 24px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin-left: -2px;
+    padding-top: 30px;
+}
+
+.vertical-box
+{
+    width: 160px;
+    height: 376px;
+    margin-top: 105px;
+    left: 0;
+    margin-left: 71px;
+    background-image: url(images/left.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    /* background-color: red; */
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+.as
+{
+    writing-mode: vertical-rl; 
+    font-size: 42px;
+    letter-spacing: 5px;
+    font-family: "Itim", cursive;
+    font-weight: 350;
+    font-style: normal;
+    color: grey;
+}
+.vertical-box2
+{
+    width: 160px;
+    height: 376px;
+    margin-top: 105px;
+    background-image: url(images/right.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    margin-right: 70px;
+}
+.logo
+{
+    width: 321px;
+    height: 317px;
+    /* background: aqua; */
+    margin-top: 143px;
+    margin-left: 305px;
+    background-image: url(images/Adobe\ Express\ -\ file\ 1.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.circle
+{
+    position: relative;
+}
+.half-upper {
+    width: 335px;
+    height: 165px; /* as the half of the width */
+    border-top-left-radius: 300px;
+    border-top-right-radius: 300px;
+    border: 5px solid #161A30;
+    border-bottom: 0;
+    position: absolute;
+
+    /* -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; */
+    margin-top: 130px;
+    margin-left: 275px;
+    rotate: -10deg;
+}
+.half-lower {
+    width: 335px;
+    height: 165px; /* as the half of the width */
+    border-top-left-radius: 300px;
+    border-top-right-radius: 300px;
+    border: 5px solid #161A30;
+    border-bottom: 0;
+    position: absolute;
+    /* -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; */
+    /* margin-top: -150px; */
+    /* margin-left: 300px; */
+    rotate: 175deg;
+    bottom: 0;
+    margin-bottom: 275px;
+    margin-left: 300px;    
+    z-index: 0;
+}
+.oval
+{
+    width: 10px;
+    height: 30px;
+    background: #F4F4F2;
+    position: absolute;
+    margin-top: 305px;
+    border-radius: 20%;
+    margin-left: 287px;
+    z-index: 1;
+}
+.oval1
+{
+    width: 30px;
+    height: 55px;
+    background: #F4F4F2;
+    position: absolute;
+    margin-top: 320px;
+    margin-left: 278px;
+    border-radius: 10px;
+    rotate: 3deg;
+    z-index: 1;
+}
+.oval2
+{
+    width: 35px;
+    height: 60px;
+    rotate: -5deg;
+    background: #F4F4F2;
+    /* background: #000; */
+    position: absolute;
+    margin-top: 210px;
+    border-radius: 20%;
+    margin-left: 615px;
+}
+/* .lower-oval
+{
+    width: 35px;
+    height: 60px;
+    background: #F4F4F2;
+    background: #000;
+    position: absolute;
+    margin-top: -140px;
+    border-radius: 25%;
+    margin-left: 270px;
+    transform: rotate(350deg);
+    z-index: 1;
+} */
+.st-line
+{
+    position: absolute;
+    width: 170px;
+    height: 4px;
+    margin-top: 325px;
+    margin-left: 128px;
+    border-radius: 5px;
+    transform: rotate(343deg);
+    background: #000;
+}
+.st-line2
+{
+    position: absolute;
+    width: 170px;
+    height: 4px;
+    top: 0;
+    right: 0;
+    margin-top: 267px;
+    margin-right: -798px;
+    border-radius: 5px;
+    transform: rotate(343deg);
+    background: #000;
+}
+
+.nav-bar
+{
+    width: 100%;
+    height: 49px;
+    position: absolute;
+    /* bottom: 0; */
+    left: 0;
+    margin-top: -150px;
+    background: #BBBFCA;
+    opacity: 42%;
+    margin-bottom: 80px;
+    /* z-index: -1; */
+}
+.bar-bar
+{
+    width: 57%;
+    height: 49px;
+    background: #ffffff;
+    /* background: black; */
+    position: absolute;
+    right: 0;
+    /* z-index: 1; */
+    opacity: 27%;
+    bottom: 0;
+}
+.brand-font
+{
+    font-size: 24px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 10px;
+    margin-left: 165px;
+}
+.nav-links
+{
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 0;
+    justify-content: center;
+    /* z-index: 3; */
+}
+.nav-link
+{
+    text-decoration: none;
+    padding: 10px 30px;
+    color: #000;
+    font-size: 24px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.brand-info
+{
+    width: 510px;
+    height: 123px;
+    /* background: red; */
+    margin-top: -140px;
+    margin-left: 79px;
+}
+.info-aa
+{
+    font-size: 18px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    padding: 20px 0;
+}
+.why-us
+{
+    width: 100%;
+    height: 750px;
+    /* background: aqua; */
+    display: flex;
+}
+.con1,.con2
+{
+    width: 50%;
+    height: 100%;
+    /* background: #161A30; */
+    display: flex;
+    align-items: center;
+}
+/* .con2
+{
+    background: #BBBFCA;
+
+} */
+.con1-img
+{
+    width: 45%;
+    height: 408px;
+    /* background: blue; */
+    margin-left: 150px;
+    box-shadow: -29px 29px 15px #bfbfbf;
+}
+.con1-img1
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    
+}
+.con2-sec
+{
+    width: 90%;
+    height: 408px;
+    /* background: red; */
+    margin-top: -10px;
+    /* margin-left: 50px; */
+}
+.info
+{
+    font-size: 24px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: #495464;
+    margin-left: 10px;
+}
+.small-font-line
+{
+    width: 5px;
+    height: 30px;
+    background: #495464;
+    top: 0;
+}
+.info-second-sec
+{
+    width: 90%;
+    height: 208px;
+    /* background: wheat; */
+    text-align: left;
+}
+.con2-info
+{
+    font-size: 18px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+.space
+{
+    width: 50px;
+    height: 50px;
+}
+.third-sec
+{
+    width: 100%;
+    height: 750px;
+    /* background: red; */
+    display: flex;
+}
+.col1,.col2
+{
+    width: 50%;
+    height: 100%;
+    /* background: olivedrab; */
+}
+/* .col2
+{
+    background: gold;
+} */
+.con1-img2
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    box-shadow: 28px 21px 8.2px #bfbfbf;
+    /* background: #000; */
+}
+.img-s
+{
+    width: 310px;
+    height: 408px;
+    /* background: antiquewhite; */
+    margin: 125px 293px;
+}
+.tsimg
+{
+    width: 310px;
+    height: 408px;
+    border-radius: 5px;
+}
+.col1-cont1
+{
+    width: 90%;
+    height: 50px;
+    /* background: red; */
+    margin-left: 73px;
+    margin-top: 100px;
+    display: flex;
+}
+.small-line
+{
+    width: 5px;
+    height: 30px;
+    background: #495464;
+    margin-left: 620px;
+    margin-top: 10px;
+    position: absolute;
+}
+.why
+{
+    font-size: 24px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: #495464;
+    margin-left: 530px;
+    margin-top: 8px;
+}
+.col1-cont2
+{
+    width: 90%;
+    height: 208px;
+    /* background: azure; */
+    margin-left: 73px;
+    text-align: right;
+}
+.why-text
+{
+    font-size: 18px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+.footer
+{
+    width: 100%;
+    height: 200px;
+    background: #E8E8E8;
+    display: flex;
+}
+.cont1,.cont2
+{
+    width: 50%;
+    height: 100%;
+    /* background: red; */
+    display: flex;
+}
+/* .cont2{
+    background: green;
+} */
+.logo-divv
+{
+    width: 40%;
+    height: 100%;
+    /* background: black; */
+    margin-left: 50px;
+    background-image: url(images/Adobe\ Express\ -\ file\ 1.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.footer-text
+{
+    width: 50%;
+    height: 100%;
+    /* background: whitesmoke; */
+}
+.f-h
+{
+    font-size: 24px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: #495464;
+}
+.conta
+{
+    font-size: 20px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+.c{
+    text-decoration: none;
+    color: #495464;
+    /* writing-mode: vertical-rl; */
+}
+.space1
+{
+    width: 10px;
+    height: 20px;
+}
+
+/* --------------not found page --------------- */
+.notFound-container
+{
+    width: 100%;
+    height: 725px;
+    background: #E8E8E8;
+    position: fixed;
+}
+.notFound-secd
+{
+    width: 90%;
+    height: 80%;
+    margin: 5% 5%;
+    background: #F4F4F2;
+    position: relative;
+    display: flex;
+}
+.nf-sec1
+{
+    width: 30%;
+    height: 100%;
+    /* background: blue; */
+    background: #eeeeee;
+    /* position: absolute; */
+}
+.nf-sec2
+{
+    width: 70%;
+    height: 100%;
+    background: white;
+    background-image: url('../static/images/heh22.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.FOF
+{
+    /* background: violet; */
+    width: max-content;
+    margin-top: 1.5em;
+    margin-left: 2.5em;
+    font-size: 58px;
+    font-family: "Itim", cursive;
+    font-weight: bold;
+    font-style: normal;
+}
+.FOFT,.pp,.backtohome
+{
+    /* background-color: aqua; */
+    font-size: 16px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 20px;
+    color: #495464;
+    text-align: center;
+}
+.backtohome
+{
+    text-decoration: none;
+    margin-left: 40%;
+}
+/* --------------not found page --------------- */

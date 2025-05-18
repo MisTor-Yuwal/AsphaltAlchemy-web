@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body
+{
+    background: #F4F4F2;
+}
+#font
+{
+    font-size: 24px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+.navi
+{
+    width: 50px;
+    height: 720px;
+    background: #E8E8E8;
+    position: fixed;
+    z-index: 0;
+}
+/* .navi::after
+{
+    content: '';
+    position: absolute;
+    background: red;
+    width: 0px;
+    height: 100%;
+    z-index: -1;
+    transition: 500ms ease-in-out;
+    left: 0;
+    top: 0;
+}
+.navi:hover::after
+{
+    width: 150px;
+} */
+/* .navi:hover
+{
+    overflow: visible;
+} */
+.navi a
+{
+    display: block;
+    text-decoration: none;
+    /* font-size: 24px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal; */
+    /* background: blue; */
+    top: 0;
+    left: 0;
+    /* max-width: fit-content;
+    max-height: fit-content; */
+    padding: 0 0 5px 5px;
+    margin-left: 10px;
+    margin-top: 20px;
+    z-index: 1;
+    /* overflow: hidden; */
+}
+
+.space
+{
+    margin-top: 280px;
+}
+svg{
+    width: 50%;
+    height: 50%;
+}
+.auth-container
+{
+    width: 100%;
+    height: 45em;
+    /* background: red; */
+    position: absolute;
+    z-index: -1;
+}
+.choice-container
+{
+    width: 80%;
+    height: 80%;
+    /* background: #000; */
+    /* background: #E8E8E8; */
+    margin: 5% 12%;
+    display: flex;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 20px 20px 55px 0;
+}
+.sec1
+{
+    width: 70%;
+    height: 100%;
+    /* background: green; */
+    background: #E8E8E8;
+    position: absolute;
+    background-image: url(images/dem1nobog.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.sec2
+{
+    width: 30%;
+    height: 100%;
+    /* background: whitesmoke; */
+    position: absolute;
+    right: 0;
+}
+.header
+{
+    width: 100%;
+    height: 20%;
+    /* background: blue; */
+    margin-top: 61px;
+}
+.header h1, p
+{
+
+    font-size: 30px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin-left: 70px;
+    
+}
+.form
+{
+    position: relative;
+}
+input
+{
+    border: none;
+    width: 250px;
+    height: 30px;
+    padding: 5px 5px;
+    text-align: center;
+    margin-left: 50px;
+    /* margin-top: 5px; */
+    position: relative;
+    border-radius: 5px;
+    /* z-index: 0; */
+    
+}
+.password
+{
+    margin-top: 10px;
+}
+.email::after,.password::after
+{
+    content: '';
+    width:  250px;
+    height: 3px;
+    background: linear-gradient(to right, #BBBFCA ,#495464); 
+    position: absolute;   
+    left: 0;
+    margin-top: 30px;
+    margin-left: 50px;
+    z-index: -1;
+    transition: 5ms ease;
+    /* border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px; */
+    /* z-index: 5; */
+}
+.mail
+{
+    width: 7%;
+    height: 30%;
+    /* background: #000; */
+    position: absolute;
+    margin-top: -2px;
+    left: 0;
+    margin-left: 55px;
+
+}
+.signup-link
+{
+    display: flex;
+    position: relative;
+}
+.lButton
+{
+    border: none;
+    width: 90px;
+    height: 30px;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 50px;
+    background: #E8E8E8;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+.lButton::after
+{
+    content: '';
+    width: 0px;
+    height: 2px;
+    background: linear-gradient(to right, #495464, #BBBFCA);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: 300ms ease-in;
+    border-radius: 5px;
+}
+.lButton:hover::after
+{
+    width: 90px;
+    background: linear-gradient(to left, #495464,#BBBFCA);
+}
+.cButton
+{
+    width: 110px;
+    height: 30px;
+    margin-top: 20px;
+    margin-left: 190px;
+    background: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    /* box-shadow: 5px 10px 15px; */
+}
+.extra-links
+{
+    display: flex;
+    position: relative;
+}
+.optional
+{
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.op-head
+{
+    font-size: 16px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+.sspace
+{
+    width: 40px;
+    height: 10px;
+}

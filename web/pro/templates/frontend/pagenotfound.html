@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>404 Not Found</title>
+</head>
+<body>
+    <div class="notFound-container">
+        <div class="notFound-secd">
+            <div class="nf-sec1">
+                <h1 class="FOF">404</h1>
+                <p class="FOFT">
+                    Oooo Seems like you lost your way and ended up here.
+                    Did you follow a broken link ?
+                    <br>
+                    Cause this page doesnot exist. Or was it working before?
+                    Whatever may be the case let's just blame it on you.
+                </p>
+                <p class="pp">
+                    Let's go back to home, shall we? 
+                </p>
+                <a href="{{ url_for('views.home')}}" class="backtohome">click here</a>
+            </div>
+            <div class="nf-sec2">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
