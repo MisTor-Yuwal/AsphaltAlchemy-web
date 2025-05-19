@@ -112,6 +112,8 @@ svg{
     width: 30%;
     height: 100%;
     /* background: whitesmoke; */
+    display: flex;
+    flex-direction: column;
     position: absolute;
     right: 0;
 }
@@ -136,6 +138,11 @@ svg{
 {
     position: relative;
 }
+/* form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+} */
 input
 {
     border: none;
@@ -147,8 +154,7 @@ input
     /* margin-top: 5px; */
     position: relative;
     border-radius: 5px;
-    /* z-index: 0; */
-    
+    /* z-index: 0; */    
 }
 .password
 {
@@ -181,11 +187,11 @@ input
     margin-left: 55px;
 
 }
-.signup-link
+.signin-link
 {
     display: flex;
     position: relative;
-}
+} 
 .lButton
 {
     border: none;
@@ -259,3 +265,232 @@ input
     width: 40px;
     height: 10px;
 }
+
+/* ---------- for admin ---------------- */
+.admin-cont
+{
+    width: 100%;
+    height: 100vh;
+    background: #E8E8E8;
+    position: relative;
+    display: flex;
+}
+.admin-nav
+{
+    width: 15%;
+    height: 100%;
+    /* background: red; */
+    position: fixed;
+}
+.ad-link a
+{
+    display: block;
+    position: relative;
+    width: max-content;
+    height: max-content;
+    /* background: white; */
+    margin-top: 15px;
+    margin-left: 50px;
+    text-decoration: none;
+    color: #495464;
+    font-size: 18px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+.ad-link
+{
+    margin-top: 90px;
+    margin-left: 20px;
+}
+.right-cont
+{
+    width: 85%;
+    height: 95%;
+    background: #F4F4F2;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.aa-head
+{
+    font-size: 24px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    position: absolute;
+    top: 0;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+.ad-link svg
+{
+    width: 10%;
+    height: 3%;
+    /* background: wheat; */
+    position: absolute;
+    margin-left: 20px;
+
+}
+.icon
+{
+    margin-top: 15px;
+}
+.zspace
+{
+    width: 10%;
+    height: 10%;
+    margin-top: 150px;
+}
+/* ---------- for admin ---------------- */
+
+/* ------------ for users--------------- */
+.user-container
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* column-gap: .5%; */
+    display: flex;
+    background: #E8E8E8;
+}
+.user-side-nav
+{
+    width: 20%;
+    height: 100%;
+    /* background: red; */
+    display: flex;
+    flex-direction: column;
+    /* position: absolute; */
+}
+.user-main-section
+{
+    flex-shrink: 5;
+    width: 80%;
+    height: 100%;
+    /* background: violet; */
+    /* position: absolute; */
+    right: 0;
+}
+.top-nav
+{
+    width: 100%;
+    height: 40%;
+    /* background: green; */
+    display: flex;
+    row-gap: 1%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.bottom-nav
+{
+    width: 100%;
+    height: 60%;
+    /* background: violet; */
+}
+.user-head
+{
+    width: 100%;
+    height: max-content;
+    /* background: pink; */
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+.user-logo
+{
+    flex-shrink: 0;
+    width: 40%;
+    height: 40%;
+    background: #495464;
+    border-radius: 50%;
+    margin-top: 15%;
+}
+.u-info
+{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    /* background:red; */
+    margin-top: 5%;
+}
+.user-info
+{
+    /* background: blue; */
+    width: 50%;
+    font-size: 14px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.use-full-link-user
+{
+    width: 100%;
+    height: max-content;
+    /* background: aquamarine; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ul-logo
+{
+    width: 40%;
+    height: 40%;
+    /* background: white; */
+    margin-top: 45%;
+}
+.u-link
+{
+    display: flex;
+    column-gap: 5%;
+}
+.ul-logos
+{
+    width: 20%;
+    height: max-content;
+    /* background: green; */
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    align-items: end;
+}
+.user-links
+{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    /* background: red; */
+}
+.user-nav-link
+{
+    text-decoration: none;
+    font-size: 18px;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 25%;
+    color: #495464;
+}
+.small-space-for-user-nav
+{
+    width: 10%;
+    height: 10%;
+    /* background: black; */
+}
+.line-near
+{
+    width: .3%;
+    height: 90%;
+    margin-top: 2.5%;
+    background: #BBBFCA;
+}
+/* ------------ for users--------------- */

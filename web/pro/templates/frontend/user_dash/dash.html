@@ -1,0 +1,8 @@
+{% extends 'frontend/user_dash/userDash.html' %}
+
+{% block content %}
+    <h1 class="welcom-user">
+       Hello {{ current_user.f_name }}
+    </h1>
+    <p id="time" class ="clock"></p>
+{% endblock %}

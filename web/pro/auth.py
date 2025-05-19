@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .model import User
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user
 
 auth=Blueprint('auth', __name__)
 
@@ -16,6 +16,7 @@ def signup():
           cPassword=request.form.get('confirm-password')
 
           user = User.query.filter_by(email=email).first()
+
           if user:
                flash('user already exists', category='error')
           elif len(email) < 4:
@@ -30,9 +31,10 @@ def signup():
                new_user = User(email=email, f_name=fName, L_name=lName, password=generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
                db.session.add(new_user)
                db.session.commit()
-               login_user(user, remember=True)
+               login_user(new_user, remember=True)
                flash('Account created', category='success')
-               return redirect(url_for('views.products'), name='time')
+               return redirect(url_for('views.user_dashboard'))
+               
 
     return render_template('frontend/signup.html')
 
@@ -46,11 +48,18 @@ def login():
 
           if user:
                if check_password_hash(user.password, password):
-                    flash('logged in', category='success')
                     login_user(user, remember=True)
+                    flash('logged in', category='success')
+                    return redirect(url_for('views.user_dashboard'))
                else:
                     flash('Incorrect Password', category='error')
           else:
                flash('user doesnot exists', category='error')
      return render_template('frontend/auth.html')
 
+@auth.route("/logout")
+@login_required
+def logout():
+     logout_user()
+     flash('Logged out', category='success')
+     return redirect(url_for('auth.login'))

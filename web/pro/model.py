@@ -7,14 +7,15 @@ class Product(db.Model):
     productQuantity = db.Column(db.Integer)
     productDetail = db.Column(db.String(10000))
     productPrice = db.Column(db.Float)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.Uid'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
-    Uid= db.Column(db.Integer, primary_key=True)
+    id= db.Column(db.Integer, primary_key=True)
     f_name = db.Column(db.String(150))
     L_name = db.Column(db.String(150))
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
+    is_admin = db.Column(db.Boolean, default=True)
     uproduct = db.relationship('Product', backref='user', lazy=True, cascade='all, delete')
