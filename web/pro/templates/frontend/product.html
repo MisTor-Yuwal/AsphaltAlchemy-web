@@ -4,10 +4,42 @@
 
 {% block content %}
 
-    <h1>
-       welcome {{name}}
-    </h1>
+   <div class="product-container">
+        <div class="product-grid">
+            {% for product in products %}  
+                <a onmousedown="this.classList.add('change')" onmouseup="this.classList.add('change')" class="product-link font" href="{{ url_for('views.product_detail', productID=product.productID) }}">        
+                    <div class="product-photo-sec" id="productDiv">
+                        <div class="product-img">
+                            <div class="product-sub-img-sec">
+                                {% if product.exists %}
+                                    {% elif product.image %}
+                                        <img src="{{ url_for('static', filename='uploads/' + product.image[0].file_name) }}" alt="" class="">
 
-
-
+                                    {% else %} 
+                                        <img src="{{ url_for('static', filename='gallery/non2.jpeg' ) }}" alt="" class="">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="product-spec">
+                            <div class="product-title">
+                                <div class="product-sub-title">
+                                    {{ product.productName }}
+                                </div>
+                                <div class="product-sub-detail">
+                                    <span class="product-price-main">{{ product.productPrice }}</span>
+                                    {% if product.recent_offer %}
+                                        <span class="product-discount">
+                                            - {{ product.recent_offer.discount_percentage }}%
+                                        </span>
+                                    {% else %}
+                                        <span></span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+             {% endfor %}
+        </div>
+    </div>
 {% endblock %}

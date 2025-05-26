@@ -3,7 +3,35 @@
 {% block title %} Gallery - AsphaltAlchemy {% endblock %}
 
 {% block content %}
-<h1 style="margin-left: 80px;">
-    Gallery
-</h1>
+
+    <div class="gallery-container">
+        <div class="gallery-grid">
+            {% for photo in photos %}           
+                <div class="photo">
+                    <div class="gallery-title">
+                        <div class="gallery-sub-title">
+                            {{ photo.title }}
+                        </div>
+                    </div>
+                    <div class="gallery-img">
+                        <div class="gallery-sub-img-sec">
+                            <!-- <img class="gallery-photo" src="{{ url_for('static', filename='gallery/' + photo.picture_file)}}" onerror="this.onerror=null; this.src='{{ url_for('static', filename='gallery/non.jpeg') }}';" alt=""> -->
+                             {% if photo.exists %}
+                                <img src="{{ url_for('static', filename='gallery/' + photo.picture_file) }}" alt="" class="gallery-photo">
+                             {% else %} 
+                                <img src="{{ url_for('static', filename='gallery/non.jpeg' ) }}" alt="" class="gallery-photo">
+                             {% endif %}
+                        </div>
+                    </div>
+                    <div class="gallery-description">
+                        <div class="gallery-sub-detail">
+                            {{ photo.description }}
+                        </div>
+                    </div>
+                </div>
+             {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}
+{{ photo.description }}

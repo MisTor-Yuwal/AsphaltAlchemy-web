@@ -1,0 +1,62 @@
+{% extends 'backend/base.html' %}
+
+{% block content %}
+    <div class="admin-dash-main-content">
+        <div class="admin-dash-main-heading-section">
+             <!-- {{ previous_login.strftime('%Y-%m-%d %H:%M:%S') if last_login else "First time login" }} -->
+                <p class="itim time" id="time"></p>
+        </div>
+        <div class="admin-dash-main-profit-section">
+            <div class="profit-section">
+                <div class="profit-sub-section-head itim">
+                    Sales : 
+                </div>
+                <div class="profit-sub-second-section itim">
+                    <div class="numeric-section">
+                        <span class="itim">
+                            + RS 20000
+                        </span>
+                    </div>
+                    <div class="smallgraph">
+                        graph
+                    </div>
+                </div>
+            </div>
+            <div class="profit-section">
+                 <div class="profit-sub-section-head itim">
+                    Daily Sales : 
+                </div>
+                <div class="profit-sub-second-section itim">
+                    <div class="numeric-section">
+                        <span class="itim">
+                            + RS 50,000
+                        </span>
+                    </div>
+                    <div class="smallgraph">
+                        graph
+                    </div>
+                </div>
+            </div>
+            <div class="profit-section">
+                 <div class="profit-sub-section-head itim">
+                    Profit : 
+                </div>
+                <div class="profit-sub-second-section itim">
+                    <div class="numeric-section">
+                        <span class="itim">
+                            + RS 10,000
+                        </span>
+                    </div>
+                    <div class="smallgraph">
+                        graph
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="admin-dash-main-graph-section">
+            <div class="graph-container">
+                <h1>graph</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template
-from flask_login import login_required
-
+from flask import Blueprint, render_template, current_app
+from .model import Product, Gallery
+import os
 
 views = Blueprint("views", __name__)
 
@@ -10,31 +10,38 @@ def home():
 
 @views.route("/product")
 def products():
-	return render_template("frontend/product.html")
+	lproducts = Product.query.all()
+
+	for product in lproducts:
+		if product.offers:
+			product.recent_offer = max(product.offers, key=lambda o: o.created_at)
+		else:
+			product.recent_offer = None
+	return render_template("frontend/product.html", products=lproducts)
+
+@views.route("/product/<int:productID>")
+def product_detail(productID):
+	product = Product.query.filter_by(productID=productID).first_or_404()
+	lproducts = Product.query.all()
+
+	for p in lproducts:
+		if p.offers:
+			p.recent_offer = max(p.offers, key=lambda o: o.created_at)
+		else:
+			p.recent_offer = None
+
+	return render_template('frontend/product_detail.html', product=product, products=lproducts)
 
 @views.route("/gallery")
 def gallery():
-	return render_template("frontend/gallery.html")
+	photos=Gallery.query.all()
+	photo_folder = current_app.config['GALLERY_FOLDER']
 
-@views.route("/dashboard")
-@login_required
-def user_dashboard():
-	return render_template("frontend/user_dash/dash.html")
+	for photo in photos:
+		photo_path = os.path.join(photo_folder, photo.picture_file)
+		photo.exists = os.path.exists(photo_path)
 
-@views.route("/user_order")
-@login_required
-def users_order():
-	return render_template("frontend/user_dash/order.html")
-
-@views.route("/user_info")
-@login_required
-def user_info():
-	return render_template("frontend/user_dash/info.html")
-
-@views.route("/user_cart")
-@login_required
-def user_cart():
-	return render_template("frontend/user_dash/cart.html")
+	return render_template("frontend/gallery.html", photos=photos)
 
 @views.app_errorhandler(404)
 def page_not_found(e):

@@ -1,0 +1,20 @@
+{% extends 'backend/base.html' %}
+
+
+{% block title %}
+    Admin - Order
+{% endblock %}
+
+{% block content %}
+    <div class="order-content">
+        <div class="scrollable-order-container">
+            <div class="order-grid">
+                {% for product in products %}
+                    <div class="order-card">
+                        {{ product.productName }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

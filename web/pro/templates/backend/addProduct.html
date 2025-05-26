@@ -1,0 +1,100 @@
+{% extends 'backend/base.html' %}
+
+
+{% block title %}
+    Admin - Add product
+{% endblock %}
+
+{% block content %}
+   <div class="add-product-container">
+        <div class="add-product-section">
+            <div class="product-heading">
+                <h1 class="itim add-pro-heading">Add product</h1>
+            </div>
+            <div class="product-form-section">
+                <div class="form-labels">
+                        <span class="itim form-label">
+                            {{ form.name.label}} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.quantity.label }} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.price.label }} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.color.label }} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.weight.label }} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.material.label }} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.percentage.label }} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.sizes.label }} :
+                        </span>
+                         <span class="itim form-label">
+                            {{ form.image.label }} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.description.label }} :
+                        </span>
+                </div>
+                <div class="add-pro-form">
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        <div class="product-name">
+                            {{ form.name() }}  
+                        </div>
+                        <div class="product-quantity">
+                            {{ form.quantity() }}
+                        </div>
+                        <div class="product-price">
+                            {{ form.price() }}
+                        </div>
+                        <div class="product-color">
+                            {{ form.color() }}
+                        </div>
+                        <div class="product-weight">
+                            {{ form.weight() }}
+                        </div>
+                        <div class="product-material">
+                            {{ form.material() }}
+                        </div>
+                        <div class="product-percentage">
+                            {{ form.percentage() }}
+                        </div>
+                         <div class="product-size">
+                             {% for value, label in form.sizes.choices %}
+                                <label class="size-option">
+                                    <input type="checkbox" name="{{ form.sizes.name }}"
+                                        value="{{ value }}"
+                                        {% if value in form.sizes.data or request.method == 'POST' and value in request.form.getlist(form.sizes.name) %}
+                                        checked
+                                        {% endif %}>
+                                    <span class="size-label itim">{{ label }}</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <div class="product-image">
+                            {{ form.image(multiple=True,) }}
+                            {% for error in form.image.errors %}
+                                <span style="color: red; position: absolute;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="product-description">
+                            {{ form.description() }}
+                        </div>
+                        
+                            {{ form.submit() }}
+                    </form>
+                </div>
+            </div>
+        </div>
+   </div>
+{% endblock %}
+    

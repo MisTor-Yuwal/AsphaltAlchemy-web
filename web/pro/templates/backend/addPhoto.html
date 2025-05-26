@@ -1,0 +1,45 @@
+{% extends 'backend/base.html' %}
+
+
+{% block title %}
+    Admin - Add photo
+{% endblock %}
+
+{% block content %}
+     <div class="add-product-container">
+        <div class="add-product-section">
+            <div class="product-heading">
+                <h1 class="itim add-pro-heading">Add photo</h1>
+            </div>
+            <div class="product-form-section">
+                <div class="form-labels">
+                        <span class="itim form-label">
+                            {{ form.title.label}} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.photo.label }} :
+                        </span>
+                        <span class="itim form-label">
+                            {{ form.description.label }} :
+                        </span>
+                </div>
+                <div class="add-pro-form">
+                    <form method="POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="product-name">
+                        {{ form.title() }}  
+                    </div>
+                    <div class="product-image">
+                        {{ form.photo() }}
+                    </div>
+                    <div class="product-description">
+                        {{ form.description() }}
+                    </div>
+                    
+                        {{ form.submit() }}
+                </form>
+                </div>
+            </div>
+        </div>
+   </div>
+{% endblock %}

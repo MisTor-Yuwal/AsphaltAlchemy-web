@@ -2,3 +2,6 @@ pip install flask
 pip install flask-socketio
 pip install flask_sqlalchemy
 pip install werkzeug
+pip install flask-wtf
+pip install email_validator
+pip install mysqlclient

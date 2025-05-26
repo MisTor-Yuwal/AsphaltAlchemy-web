@@ -497,7 +497,7 @@
 .notFound-container
 {
     width: 100%;
-    height: 725px;
+    height: 100%;
     background: #E8E8E8;
     position: fixed;
 }

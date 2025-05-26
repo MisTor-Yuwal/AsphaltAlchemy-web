@@ -3,9 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static' ,filename='astyle.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Admin - Asphalt Alchemy</title>
 </head>
 <body>
-    <h1>this page is for admin only</h1>
+    <div class="main-container">
+        <div class="home-for-admin">
+                <a href="{{ url_for('views.home')}}" class="home-for-admin-link">
+                    <svg class="admin-home-arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                </a>
+        </div>
+         <div class="hero-container">
+            <div class="first-section">
+                <div class="logo">
+
+                </div>
+                <div class="photos">
+                    <div class="photo1 img1">
+                        <img class="admin-auth-photo stack1" src="{{ url_for('static', filename='images/img1.jpeg')}}" alt="">
+                    </div>  
+                    <div class="photo1 img2">
+                        <img class="admin-auth-photo stack2" src="{{ url_for('static', filename='images/img5.jpeg')}}" alt="">
+                    </div>
+                    <div class="photo1 img3">
+                        <img class="admin-auth-photo stack3" src="{{ url_for('static', filename='images/img3.png')}}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="second-section">
+                <div class="form">
+                    <div class="admin-auth-heading">
+                        <h1 class="admin-he itim">
+                            Welcome back admin ;)
+                        </h1>
+                        <span class="jap hina-mincho-regular">
+                            おかえりなさい
+                        </span>
+                    </div>
+                    <div class="admin-auth-form">
+                        <form method="POST">
+                            {{ form.hidden_tag() }}
+                            <div class="form-input">
+                                {{ form.email }}
+                            </div>
+                            <div class="form-input">
+                                {{ form.password }}
+                            </div>
+                            {{ form.submit }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <script>
+            {% for category, message in messages %}
+                Swal.fire({
+                icon: "{{ 'error' if category == 'error' else category }}",
+                title: {{ message|tojson }},
+                showConfirmButton: false,
+                timer: 2000
+                });
+            {% endfor %}
+            </script>
+        {% endif %}
+    {% endwith %}
 </body>
 </html>

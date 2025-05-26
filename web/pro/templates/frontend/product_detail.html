@@ -1,0 +1,101 @@
+{% extends 'frontend/productbase.html' %}
+
+{% block title %} {{ product.productName }} - Detail {% endblock %}
+
+{% block content %}
+    <div class="product-detail-main-container">
+        <div class="product-detail-sub-container">
+            <div class="scrollable-product-images">
+                <div class="image-section">
+                     {% for image in product.image %}
+                        <div class="product-imgs">
+                            {% if image %}
+                                <img class="product-detail-img" src="{{ url_for('static', filename='uploads/' + image.file_name)}}" alt="">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/non.jpeg')}}" alt="" class="product-detail-img">
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+               <div class="second-section">
+                    <div class="scroll-wrapper">
+                        <div id="sticky" class="product-choice-purchase">
+                            <div class="product-specification">
+                                <div class="product-name-heading">
+                                    <span class="product-font product-name">
+                                        {{ product.productName }}
+                                    </span>
+                                </div>
+                                <div class="product-price-div">
+                                    <span class="product-font product-price">
+                                        {{ product.productPrice }} 
+                                    </span>
+                                   {% if product.recent_offer %}
+                                        <span class="product-discount">
+                                            - {{ product.recent_offer.discount_percentage }}%
+                                        </span>
+                                    {% else %}
+                                        <span></span>
+                                    {% endif %}
+                                </div>
+                                <div class="product-color">
+                                    <span class="product-font product-color">
+                                    {{ product.productColor }}
+                                    </span>
+                                </div>
+                                <div class="product-se">
+                                    <div class="product-percentage">
+                                        <span class="product-font product-per">
+                                            %  {{ product.productPercentage }} 
+                                        </span>
+                                    </div>
+                                    <div class="product-material">
+                                        <span class="product-font product-material">
+                                            {{product.productMaterial}}
+                                        </span>
+                                    </div>
+                                    <div class="product-weight font">
+                                        <span class="product-font product-weight">
+                                            {{ product.productWeight }} <span class="product-font  gm">GM</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="product-add-cart-div">
+                                    <span class="font">
+                                        add to cart
+                                    </span>
+                                </div>
+                                <div class="product-color">
+                                    {% if product.recent_offer %}
+                                         <span class="product-font product-offer-date product-color">
+                                            duration : {{ product.recent_offer.start_date }}   -    {{ product.recent_offer.end_date }}
+                                        </span>
+                                    {% else %}  
+                                        <span></span>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>                   
+                    </div>
+                    <div class="product-details-section">
+                        <!-- <div class="product-details">
+                            <span class="test-text">
+
+                            </span>
+                        </div> -->
+                        <div class="product-detail-section-description">
+                            <p class="test-text">
+                                {{ product.productDetail }}
+                            </p>
+                        </div>
+                    </div>
+               </div>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
+
+
+ 

@@ -1,0 +1,52 @@
+{% extends 'backend/base.html' %}
+
+{% block title %} Choose - Asphalt Alchemy {% endblock %}
+
+{%block content %} 
+<div class="select-product-offer-container">
+    <div class="offer-select-product">
+        <div class="scroll-optional-product">
+            <form action="{{ url_for('admin_view.select_product') }}" method="post" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <input type="hidden" name="start_date" value="{{ request.args.get('start_date') }}">
+                <input type="hidden" name="end_date" value="{{ request.args.get('end_date') }}">
+                <input type="hidden" name="discount_percentage" value="{{ request.args.get('discount_percentage') }}">
+                <div class="select-product-form-heading itim">
+                    {{ form.product.label }}
+                </div>
+                <div class="scrollable-section">
+                    {% for subfield,product in zip(form.product, products) %}
+                        <label class="card selectable-card" for="{{ subfield.id }}">
+                            <input type="checkbox" name="{{ subfield.name }}" id="{{ subfield.id }}" value="{{ product.productID }}" {% if subfield.checked %} checked {% endif %} hidden>
+                            <div class="test card-body">
+                                <div class="card-body-heading itim">
+                                    {{ product.productName }}
+                                </div>
+                                <div class="card-body-img-section">
+                                    <img class="card-body-image" src="{{ url_for('static', filename='uploads/' + product.image[0].file_name) }}" alt="">
+                                </div>
+                            </div>
+                        </label>
+
+                    {% endfor %}
+                </div>
+                <div class="button-for-offer-product-section"> 
+                    {{ form.submit() }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <div>
+        {{form.product.label }} {{ form.product() }}
+
+        {% for error in form.product.error %}
+            <div>{{ error }}</div>
+        {% endfor %}
+    </div>
+
+</form>

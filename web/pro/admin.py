@@ -1,8 +1,11 @@
-from flask import Blueprint, render_template, request, redirect,flash,url_for
+from flask import Blueprint, render_template, redirect,flash,url_for
 from flask_login import login_user,logout_user,current_user
 from werkzeug.security import check_password_hash
 from .model import User
 from functools import wraps
+from .form import LoginForm
+from . import db
+from datetime import datetime
 
 admin = Blueprint("admin", __name__)
 
@@ -18,20 +21,33 @@ def admin_required(f):
 
 @admin.route("/admin-login", methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        email=request.form.get('email')
-        password=request.form.get('password')
-        user = User.query.filter_by(email=email).first()
 
-        if user and user.is_admin and check_password_hash(user.password, password):
-            login_user(user)
-            flash('Logged in', category='success')
-            return render_template('backend/adminDash.html')
-        else:
-            flash('Invalid Admin Credentials', category='error')
-    return render_template('backend/base.html')
+        form = LoginForm()
 
-@admin.route("/admin/dashboard")
+        if form.validate_on_submit():
+            email = form.email.data
+            password = form.password.data
+
+            admin = User.query.filter_by(email=email).first()
+
+
+            if admin:
+                if check_password_hash(admin.password, password):
+                    login_user(admin, remember=False)
+                    User.previous_login = User.last_login
+                    User.last_login = datetime.utcnow()
+                    db.session.commit()
+                    flash("Welcom admin", category="success")
+                    return redirect(url_for('admin_view.Adashboard'))
+                else:
+                     flash("Incorrect password", category="error")
+            else:
+                return redirect(url_for('views.home'))
+        return render_template('backend/adminAuth.html', form=form)
+
+@admin.route("/admin-logout")
 @admin_required
-def Adashboard():
-    return render_template('backend/adminDash.html')
+def Alogout():
+    logout_user()
+    flash("logged out", category="success")
+    return redirect(url_for('admin.login'))
