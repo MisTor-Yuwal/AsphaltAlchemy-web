@@ -98,7 +98,7 @@
 }
 .half-upper {
     width: 335px;
-    height: 165px; /* as the half of the width */
+    height: 165px; 
     border-top-left-radius: 300px;
     border-top-right-radius: 300px;
     border: 5px solid #161A30;
@@ -114,7 +114,7 @@
 }
 .half-lower {
     width: 335px;
-    height: 165px; /* as the half of the width */
+    height: 165px; 
     border-top-left-radius: 300px;
     border-top-right-radius: 300px;
     border: 5px solid #161A30;
@@ -556,3 +556,133 @@
     margin-left: 40%;
 }
 /* --------------not found page --------------- */
+
+
+/* ---------------------------------responsive widths */
+.main-container-for-phones
+{
+    display: none;
+}
+@media (max-width: 480px) {
+    body {
+        background-color: #E8E8E8; /* or your desired background */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+
+    .main-container{
+        display: none;
+    }
+    .main-container-for-phones
+    {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        background: #E8E8E8;
+    }
+    .phone-inner-container
+    {
+        width: 100vw;
+        height: 90vh;
+        background: red;
+        overflow: hidden;
+    }
+    .inner-container-first-section-for-phone
+    {
+        width: 100vw;
+        height: 85vh;
+        background: blue;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .nav-bar-for-phone
+    {
+        width: 100vw;
+        height: 5vh;
+        background: violet; 
+    }
+    .circle
+    {
+        width: 400px;
+        height: 400px;
+        background: red;
+        animation: spin 3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .upperhalf
+    {
+        width: 335px;
+        height: 165px; 
+        border-top-left-radius: 300px;
+        border-top-right-radius: 300px;
+        border: 2px solid;
+        border-top-color: black;
+        border-bottom-color: blue;
+    }
+    .lowerhalf
+    {
+        width: 335px;
+        height: 165px; 
+        border-bottom-left-radius: 300px;
+        border-bottom-right-radius: 300px;
+        border: 2px solid;
+        border-bottom-color: black;
+        border-top-color: blue;
+    }
+    .gap-for-circles
+    {
+        width: 5vw;
+        height: 5px;
+    }
+    .circle.animation
+    {
+        animation: spin 3s ease-in-out;
+    }
+    .log-img-sec
+    {
+        width: 330px;
+        height: 330px;
+        border-top-left-radius: 300px;
+        border-top-right-radius: 300px;
+        border-bottom-left-radius: 300px;
+        border-bottom-right-radius: 300px;
+        border: 2px solid yellow;
+        position: absolute;
+        background-image: url('../static/images/Adobe\ Express\ -\ file\ 1.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        overflow: hidden;
+        animation: none;
+    }
+
+     /* .circle
+     {
+        width: 50px;
+        height: 50px;
+        background: red;
+        position: absolute;
+        margin-left: 50%;
+        margin-top: 50%;
+        animation: spin 3s;
+     } */
+    @keyframes spin 
+    {
+        0%
+        {
+            transform: rotate(0deg);
+        }
+        
+        100%
+        {
+            transform: rotate(360deg);
+
+        }
+    }
+}

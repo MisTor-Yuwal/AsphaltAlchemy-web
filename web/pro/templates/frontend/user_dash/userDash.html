@@ -44,7 +44,7 @@
                             <a href="{{ url_for('views.products') }}" class="user-nav-link">Store</a>
                             <a href="{{ url_for('user_view.users_order') }}" class="user-nav-link">My order</a>
                             <a style="margin-top: 30%;" href="{{ url_for('user_view.user_info') }}" class="user-nav-link">My info</a>
-                            <a href="{{ url_for('user_view.user_cart') }}" class="user-nav-link">Cart</a>
+                            <a href="{{ url_for('user_view.user_cart', user_id=current_user.id) }}" class="user-nav-link">Cart</a>
                             <a href="{{ url_for('auth.logout') }}" class="user-nav-link">Log out</a>
                         </div>
                     </ul>
@@ -58,7 +58,9 @@
             {% endblock %}
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <script>
@@ -78,10 +80,13 @@
 
 
 
+    {% block script %}
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% endblock %}
     <script>
+        const baseURLForUserMyOrder = "{{ url_for('static', filename='uploads/') }}";
+
         document.addEventListener('DOMContentLoaded', function() {
             function updateClock() {
                 const now = new Date();

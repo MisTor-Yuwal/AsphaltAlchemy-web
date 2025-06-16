@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FileField, SubmitField, IntegerField, FloatField, MultipleFileField, DateField, SelectMultipleField, SelectField
+from wtforms import StringField, FileField, SubmitField, IntegerField, FloatField, MultipleFileField, DateField, SelectMultipleField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, NumberRange, ValidationError, Length, Email, Optional, Regexp
 from flask_wtf.file import FileAllowed, FileRequired
 from .data.location_data import STATE_AND_DISTRICTS
@@ -18,45 +18,45 @@ class ProductForm(FlaskForm):
     name = StringField(
         "Product name",
         validators=[DataRequired()],
-        render_kw={"placeholder" : "product name", "class" : "form-control", "id" : "pname"}
+        render_kw={"placeholder" : "product name", "class" : "form-control ppname", "id" : "pname"}
     )
     quantity = IntegerField(
         "Quantity",
-        validators=[DataRequired(), NumberRange(min=1, max=100)],
-        render_kw={"placeholder" : "quantity", "class" : "form-control", "id" : "pquantity"}
+        validators=[DataRequired(), NumberRange(min=1, max=1000)],
+        render_kw={"placeholder" : "quantity (1-1000)", "class" : "form-control ppquantity", "id" : "pquantity"}
 
     )
     price = FloatField(
         "Price",
         validators=[DataRequired(), NumberRange(min=500, max=10000)],
-        render_kw={"placeholder" : "price", "class" : "form-control", "id" : "pprice"}
+        render_kw={"placeholder" : "price  (500-10000)", "class" : "form-control ppprice", "id" : "pprice"}
 
     )
-    description = StringField(
+    description = TextAreaField(
         "Description",
         validators=[DataRequired()],
-        render_kw={"placeholder" : "Description", "class" : "form-control", "id" : "pdescription"}
+        render_kw={"placeholder" : "Description", "class" : "form-control ppdescription", "id" : "pdescription"}
     )
     color = StringField(
         "Color",
         validators=[DataRequired()],
-        render_kw={"placeholder" : "Color", "class" : "form-control", "id" : "pname"}
+        render_kw={"placeholder" : "Color", "class" : "form-control ppcolor", "id" : "pcolor"}
     )
     weight = FloatField(
         "Weight",
         validators=[DataRequired(), NumberRange(min=100, max=1000)],
-        render_kw={"placeholder" : "weight", "class" : "form-control", "id" : "pprice"}
+        render_kw={"placeholder" : "weight  (100-1000)", "class" : "form-control ppweight", "id" : "pweight"}
 
     )
     material = StringField(
         "Material",
         validators=[DataRequired()],
-        render_kw={"placeholder" : "Material" , "class" : "form-control", "id" : "pname"}
+        render_kw={"placeholder" : "Material" , "class" : "form-control ppmaterial", "id" : "pmaterial"}
     )
     percentage = FloatField(
         "%",
         validators=[DataRequired(), NumberRange(min=0, max=100)],
-        render_kw={"placeholder" : "percentage", "class" : "form-control", "id" : "pprice"}
+        render_kw={"placeholder" : "percentage (1-100)", "class" : " pppercentage form-control", "id" : "ppercentage"}
 
     )
 
@@ -71,10 +71,12 @@ class ProductForm(FlaskForm):
         "Size",
         choices=[('S', 'S'), ('M', 'M'), ('L', 'L'), ('XL' , 'XL'), ('XXL', 'XXL')],
         coerce=str,
+        validators=[DataRequired()],
         render_kw={"placeholder" : "Size", "class" : "form-control", "id" : "psize"}
     )
 
     submit = SubmitField('upload', render_kw={"class" : "btn upload-btn btn-primary"})
+    update = SubmitField('update', render_kw={"class" : "btn upload-btn btn-primary"})
 
 
 
@@ -138,7 +140,7 @@ class Offerform(FlaskForm):
 class SelectProductForm(FlaskForm):
     product = SelectMultipleField(
         "Select product",
-        coerce=int,
+        coerce=str,
         choices=[],
         validators=[DataRequired()],
         render_kw={"class" : "form-control dropdown-for-offer-product"}

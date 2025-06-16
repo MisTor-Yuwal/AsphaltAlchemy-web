@@ -17,7 +17,7 @@
                 <div class="scrollable-section">
                     {% for subfield,product in zip(form.product, products) %}
                         <label class="card selectable-card" for="{{ subfield.id }}">
-                            <input type="checkbox" name="{{ subfield.name }}" id="{{ subfield.id }}" value="{{ product.productID }}" {% if subfield.checked %} checked {% endif %} hidden>
+                            <input type="checkbox" name="{{ subfield.name }}" id="{{ subfield.id }}" value="{{ product.productID  | replace(' ', '_') | lower}}" {% if subfield.checked %} checked {% endif %} hidden>
                             <div class="test card-body">
                                 <div class="card-body-heading itim">
                                     {{ product.productName }}
@@ -39,14 +39,3 @@
 </div>
 
 {% endblock %}
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <div>
-        {{form.product.label }} {{ form.product() }}
-
-        {% for error in form.product.error %}
-            <div>{{ error }}</div>
-        {% endfor %}
-    </div>
-
-</form>

@@ -37,7 +37,7 @@ def login():
                     User.previous_login = User.last_login
                     User.last_login = datetime.utcnow()
                     db.session.commit()
-                    flash("Welcom admin", category="success")
+                    flash("Welcome admin", category="success")
                     return redirect(url_for('admin_view.Adashboard'))
                 else:
                      flash("Incorrect password", category="error")

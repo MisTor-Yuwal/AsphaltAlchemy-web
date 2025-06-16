@@ -1,0 +1,139 @@
+{% extends 'backend/base.html' %}
+
+{% block title %} Admin - Edit Product {% endblock %}
+
+{% block content %}
+    <div class="select-product-offer-container">
+        <div class="offer-select-product">
+            <div class="scroll-optional-product">
+                <form action="{{ url_for('admin_view.edit_delete_product') }}" method="post" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="select-product-form-heading itim">
+                        {{ form.select_to_edit_delete.label }}
+                    </div>
+                    <div class="scrollable-section">
+                        {% for subfield, product in zip(form.select_to_edit_delete, products) %}
+                            <input type="radio" name="selected_product" id="product_{{ product.productID | replace(' ', '_') | lower}}" value="{{ product.productID }}" {% if subfield.checked %} checked {% endif %} hidden>
+                                <div class="select-card-body card-body">
+                                    <label class="card selectable-card " for="product_{{product.productID | replace(' ', '_') | lower}}">
+                                        <div class="test ">
+                                            <div class="card-body-heading itim">
+                                                {{ product.productName}}
+                                            </div>
+                                            <div class="card-body-img-section">
+                                                {% if product.image %}
+                                                    <img src="{{ url_for('static', filename='uploads/' ~ product.image[0].file_name)}}" alt="" class="card-body-image">
+                                                {% else %}
+                                                    <img src="{{ url_for('static', filename='images/non.jpeg' ) }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                        {% endfor %}
+                    </div>
+                    <div class="button-for-offer-product-section for-product-edit"> 
+                        <div class="product-edit-button">
+                            <button type="button" id="EDButton" class="btn btn-primary" >Edit</button>
+                        </div>
+                        <div class="product-delete-button">
+                            {{ form.delete() }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="popUpMain" class="popup-main-container">
+                <div id="myPopup" class="popup-container">
+                    <div class="popup-section-first">
+                        <div class="popup-image-preview-scroll" id="popup-images">
+             
+
+                        </div>
+                    </div>
+                    <div class="popup-section-second">
+                        <div class="popup-form-label">
+                            <span class="form-label-for-productName">
+                                {{ productform.name.label }} :
+                            </span>
+                            <span class="form-label-for-productQuantity">
+                                {{ productform.quantity.label }} :
+                            </span>
+                            <span class="form-label-for-productPrice">
+                                {{ productform.price.label }} :
+                            </span>
+                            <span class="form-label-for-productColor">
+                                {{ productform.color.label }} :
+                            </span>
+                            <span class="form-label-for-productWeight">
+                                {{ productform.weight.label }} :
+                            </span>
+                            <span class="form-label-for-productMaterial">
+                                {{ productform.material.label }} :
+                            </span>
+                            <span class="form-label-for-productPercentage">
+                                {{ productform.percentage.label }} :
+                            </span>
+                            <span class="form-label-for-productSize">
+                                {{ productform.sizes.label }} :
+                            </span>
+                            <span class="form-label-for-productDetail">
+                                {{ productform.description.label }} :
+                            </span>
+                        </div>
+                        <div class="popup-form-inputs">
+                            <button id="closePopup" class="btn-close">X</button>
+                            <div class="popup-form-container">
+                               <div class="popup-form-section">
+                                    <form class="popup-form-form" id="popupForm" method="post">
+                                        {{ productform.hidden_tag()}}
+                                        <div class="product-name">
+                                            {{ productform.name() }}
+                                        </div>
+                                        <div class="product-quantity">
+                                            {{ productform.quantity() }}
+                                        </div>
+                                        <div class="product-price">
+                                            {{ productform.price() }}
+                                        </div>
+                                        <div class="product-color">
+                                            {{ productform.color() }}
+                                        </div>
+                                        <div class="product-weight">
+                                            {{ productform.weight() }}
+                                        </div>
+                                        <div class="product-material">
+                                            {{ productform.material() }}
+                                        </div>
+                                        <div class="product-percentage">
+                                            {{ productform.percentage() }}
+                                        </div>
+                                        <div class="product-sizes">
+                                            {% for value, label in productform.sizes.choices %}
+                                                <label class="size-option">
+                                                    <input type="checkbox" name="{{ productform.sizes.name }}"
+                                                        value="{{ value }}"
+                                                        {% if value in (productform.sizes.data or []) or request.method == 'POST' and value in request.form.getlist(productform.sizes.name) %}
+                                                        checked
+                                                        {% endif %}>
+                                                    <span class="size-label itim">{{ label }}</span>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="product-description">
+                                            {{ productform.description() }}
+                                        </div>
+                                        <div class="popup-section-update-button">
+                                            {{ productform.update() }}
+                                        </div>
+                                    </form>
+                               </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -6,15 +6,18 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
+from flask_socketio import SocketIO
 
 db=SQLAlchemy()
 migrate=Migrate()
 DB_NAME = "AsphaltDatabase.db"
 csrf=CSRFProtect()
-
+socketio=SocketIO(cors_allowed_origins="*")
+login_manager = LoginManager()
 
 def create_app():
 	app = Flask(__name__)
+
 	app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 	# app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 
@@ -40,6 +43,9 @@ def create_app():
 	db.init_app(app)
 	csrf.init_app(app)
 	migrate.init_app(app, db)
+	login_manager.login_view = 'auth.login'
+	login_manager.init_app(app)
+	socketio.init_app(app)
 
 	from .views import views
 	from .auth import auth
@@ -54,10 +60,6 @@ def create_app():
 
 	from .model import User, Product
 	create_database(app)
-
-	login_manager = LoginManager()
-	login_manager.login_view = 'auth.login'
-	login_manager.init_app(app)
 
 	@login_manager.user_loader
 	def load_user(Uid):

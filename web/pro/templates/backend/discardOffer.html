@@ -1,0 +1,100 @@
+{% extends 'backend/base.html' %}
+
+
+{% block title %}
+    Admin - Discard an offer
+{% endblock %}
+
+{% block content %}
+     <div class="offer-container">
+        <div class="offer-section">
+            <div class="discard-offer-heading">
+                <h1 class="itim add-pro-heading">Discard an offer</h1>
+            </div>
+            <div class="list-offer">
+                <div class="scrollable-offer-list">
+                    <form action="" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="scroll-discard-offer-list">
+                       
+                            {% for subfield,item in zip(form.offer, offers) %}
+                                {% set offer = item.offer %}
+                                {% set products =  offer.products %}
+                                <label class="selectable-discard-offer-card" for="{{subfield.id}}">
+                                    <input type="checkbox" name="{{subfield.name}}" id="{{ subfield.id }}" value="{{offer.id}}" {% if subfield.checked %} checked {% endif %} hidden>
+                                        <div class="test-for-discard">
+                                            <div class="discard-offer-first-sec">
+                                                <div class="discard-offer-detail-section">
+                                                    <div class="discard-offer-detail-heading">
+                                                        <span class="itim discard-offer-heading-sec-heading">
+                                                            {{ offer.discount_percentage }} % OFF
+                                                        </span>
+                                                    </div>
+                                                    <div class="discard-offer-detail-details">
+                                                        <span class="itim" style="font-size: 22px; color: #E8E8E8;">
+                                                           Get this offer on:
+                                                           <br>
+                                                        {% for product in products %}
+                                                            <span class="itim discard-offer-product-name">{{ product.productName }}</span>
+                                                        {% else %}
+                                                            <span style="color: orange discard-offer-product-name">No products found</span>
+                                                        {% endfor %}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div class="discard-offer-circles">
+                                                    <div class="circles first-circle">
+                                                    </div>
+                                                    <div class="circles">
+                                                    </div>
+                                                    <div class="circles">
+                                                    </div>
+                                                    <div class="circles">
+                                                    </div>
+                                                    <div class="circles">
+                                                    </div>
+                                                    <div class="circles">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="discard-offer-space">
+                                            </div>
+                                            <div class="discard-offer-extra-details">
+                                                <div class="discard-offer-second-section-detail">
+                                                    <span class="itim use-by-text">
+                                                    From :
+                                                    </span>
+                                                    <span class="itim end-date">
+                                                        {{ offer.start_date }}
+                                                    </span>
+                                                </div>
+                                                <div class="discard-offer-second-section-second">
+                                                    <span class="itim started-from-text">
+                                                        Valid :  
+                                                    </span>
+                                                    <span class="start-date itim">
+                                                        {{ offer.end_date }}
+                                                    </span>
+                                                </div>
+                                                <div class="discard-offer-second-section-third">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <div class="discard-offer-discard-button">
+                            {{form.discard()}}
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+   </div>
+{% endblock %}

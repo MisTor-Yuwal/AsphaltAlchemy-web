@@ -1,5 +1,9 @@
 {% extends 'frontend/productbase.html' %}
 
+{% block head %}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+{% endblock %}
+
 {% block title %} {{ product.productName }} - Detail {% endblock %}
 
 {% block content %}
@@ -60,11 +64,24 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="product-add-cart-div">
-                                    <span class="font">
-                                        add to cart
-                                    </span>
-                                </div>
+                               <form method="POST" id="AddToCartForm">
+                                    {{ form.hidden_tag() }}
+                                    <input type="hidden" name="product_id" value="{{ product.productID }}">
+                                    <div class="product-size-selection size-options">
+                                        {% set available_sizes = product.productSizes | map(attribute='label') | list %}
+                                        {% for size in ['S', 'M', 'L', 'XL', 'XXL'] %}
+                                        {% set is_available = size in available_sizes %}
+                                        <label class="size-box {% if not is_available %}disabled{% endif %}">
+                                            <input type="radio" name="size" value="{{ size }}"
+                                                {% if not is_available %}disabled{% endif %}>
+                                                <span>{{ size }}</span>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="add-to-cart-section">
+                                        <button type="submit" id="AddtoCartButton">Add to cart</button>
+                                    </div>
+                                </form>   
                                 <div class="product-color">
                                     {% if product.recent_offer %}
                                          <span class="product-font product-offer-date product-color">
@@ -76,7 +93,7 @@
 
                                 </div>
                             </div>
-                        </div>                   
+                        </div>               
                     </div>
                     <div class="product-details-section">
                         <!-- <div class="product-details">
@@ -92,10 +109,203 @@
                     </div>
                </div>
             </div>
-            
+            <div id="cart-popup" class="product-detail-cart">   
+                <button class="close-cart-popup-button" type="button" id="close-cart-button">X</button>
+                    <div class="card-container" id="cardParentContainer">
+                        <!-- <div class="users-present-items-incart">
+
+                        </div> -->
+                        <div class="cartproductinfo" id="cartProductInfo" style="display: none;">
+                            <div class="cart-small-div-image-sec">
+                                <div class="cart-view-img cartViewImg">
+                                </div>
+                            </div>
+                            <div class="cart-small-div-info-sec" id="cartSmallDivInfoSec">
+                                <div class="cart-small-div-info-sec-heading" >
+                                    <span class="font cart-view-text cartSmallDivInfoSecHeading">
+                                    </span>
+                                </div>
+                                <div class="cart-small-div-info-sec-size" >
+                                    <span class="font cart-view-text cartSmallDivInfoSecSize">
+                                    </span>
+                                </div>
+                                <div class="cart-small-div-info-sec-price">
+                                    <span class="font cart-view-text cartSmallDivInfoSecPrice">
+                                    </span>
+                                </div>
+                                <div class="cart-small-div-info-sec-quantity" >
+                                    <span class="font cart-view-text cartSmallDivInfoSecQuantity">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="flashContainer" id="flashContainer">
+                <div class="flash-center-con" id="flashCenterCon">
+
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
 
 
- 
+
+{% block script %}
+<script>
+    const cartPopup = document.getElementById('cart-popup');
+    const cartButton = document.getElementById('AddtoCartButton')
+    const closeCartPopup = document.getElementById('close-cart-button');
+    
+    document.getElementById('AddToCartForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const jsonData = Object.fromEntries(formData.entries());
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const productId = document.querySelector('#product-id')?.value;
+    
+        fetch('/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify(jsonData)
+        })
+        .then(res => res.json())
+        .then(data => {
+            const product = data.product;
+
+            if (data.success) {
+                const cardMainDiv = document.getElementById('cardParentContainer');
+                const templateCartDiv = document.getElementById('cartProductInfo');
+
+                const cartDiv = templateCartDiv.cloneNode(true);
+                cartDiv.removeAttribute('id');
+                cartDiv.style.display = 'flex';
+
+                const headerSpan = cartDiv.querySelector('.cartSmallDivInfoSecHeading');
+                const sizeSpan = cartDiv.querySelector('.cartSmallDivInfoSecSize');
+                const priceSpan = cartDiv.querySelector('.cartSmallDivInfoSecPrice');
+                const quantitySpan = cartDiv.querySelector('.cartSmallDivInfoSecQuantity');
+
+                const cartViewImg = cartDiv.querySelector('.cartViewImg');
+                
+                cartViewImg.innerHTML = '';
+
+                if(product.image && product.image.length > 0) {
+                    const img = document.createElement("img");
+                    img.classList.add("cartViewImg-Img");
+
+                    img.src = `/static/uploads/${product.image[0].file_name}`;
+                    cartViewImg.appendChild(img);
+                }
+                else
+                {
+                    const img = document.createElement("img");
+                    img.classList.add("cartViewImg-Img");
+
+                    img.src = `/static/images/non.jpeg`;
+                    cartViewImg.appendChild(img);
+                }
+                headerSpan.innerText = data.product.name;
+                sizeSpan.innerText = data.size;
+                priceSpan.innerText = `Rs : ${data.product.price}`;
+                quantitySpan.innerText = `1`
+
+                cardMainDiv.appendChild(cartDiv);
+
+                cartPopup.style.display = "block";
+            } else {
+                cartPopup.style.display = "none";
+
+                const flashMessageContainer = document.getElementById('flashContainer');
+                const flashCenter = document.getElementById('flashCenterCon')
+
+                if(!data.message)
+                {
+                    flashMessageContainer.style.display = 'none';
+
+                }
+                else
+                {
+                    flashMessageContainer.style.display ='block';
+                    flashCenter.innerHTML = `
+                        <div class="flash-error font">
+                            ${data.message}
+                        </div>
+                    `;
+                   setTimeout(() => {
+                    if (data.message) {
+                        flashMessageContainer.classList.add('slide-out');
+
+                    
+                        setTimeout(() => {
+                            flashMessageContainer.innerHTML = '';
+                            flashMessageContainer.style.display = 'none';
+                                }, 500); 
+                            }
+                        }, 3000);
+
+
+
+                }
+            }
+        });
+        fetch('/get_cart_items')
+            .then(response => response.json())
+            .then(data => {
+                const cardMainDiv = document.getElementById('cardParentContainer');
+                cardMainDiv.innerHTML = ''; // Clear previous content
+
+                data.items.forEach(product => {
+                    const templateCartDiv = document.getElementById('cartProductInfo');
+                    const cartDiv = templateCartDiv.cloneNode(true);
+                    cartDiv.removeAttribute('id');
+                    cartDiv.style.display = 'flex';
+
+                    const headerSpan = cartDiv.querySelector('.cartSmallDivInfoSecHeading');
+                    const sizeSpan = cartDiv.querySelector('.cartSmallDivInfoSecSize');
+                    const priceSpan = cartDiv.querySelector('.cartSmallDivInfoSecPrice');
+                    const quantitySpan = cartDiv.querySelector('.cartSmallDivInfoSecQuantity');
+                    const cartViewImg = cartDiv.querySelector('.cartViewImg');
+                    cartViewImg.innerHTML = '';
+
+                    if(product.image && product.image.length > 0) {
+                        const img = document.createElement("img");
+                        img.classList.add("cartViewImg-Img");
+                        img.src = `/static/uploads/${product.image[0].file_name}`;
+                        cartViewImg.appendChild(img);
+                    } else {
+                        const img = document.createElement("img");
+                        img.classList.add("cartViewImg-Img");
+                        img.src = `/static/images/non.jpeg`;
+                        cartViewImg.appendChild(img);
+                    }
+
+                    headerSpan.innerText = product.name;
+                    sizeSpan.innerText = product.size;
+                    priceSpan.innerText = `Rs : ${product.price}`;
+                    quantitySpan.innerText = `${product.quantity}`;
+
+                    cardMainDiv.appendChild(cartDiv);
+                });
+
+                cartPopup.style.display = "block";
+            });
+    });
+
+    closeCartPopup.addEventListener('click', () => {
+        cartPopup.classList.add('slide-out');
+        
+        setTimeout(() => {
+            cartPopup.style.display = 'none';
+            cartPopup.classList.remove('slide-out');
+        },500);
+    });
+
+</script>
+{% endblock %}

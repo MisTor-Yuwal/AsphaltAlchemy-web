@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, current_app
+from flask import Blueprint, render_template, current_app, request, jsonify, flash,redirect,url_for
 from .model import Product, Gallery
 import os
+from .DiscardForm import AddToCartForm
 
 views = Blueprint("views", __name__)
 
@@ -21,16 +22,21 @@ def products():
 
 @views.route("/product/<int:productID>")
 def product_detail(productID):
+	form = AddToCartForm()
 	product = Product.query.filter_by(productID=productID).first_or_404()
 	lproducts = Product.query.all()
 
+	form.product_id.data = product.productID
+	availabe_size = product.productSizes
+	form.size.choices = [(s,s) for s in availabe_size]
 	for p in lproducts:
 		if p.offers:
 			p.recent_offer = max(p.offers, key=lambda o: o.created_at)
 		else:
 			p.recent_offer = None
 
-	return render_template('frontend/product_detail.html', product=product, products=lproducts)
+	return render_template('frontend/product_detail.html',form=form, product=product, products=lproducts)
+
 
 @views.route("/gallery")
 def gallery():

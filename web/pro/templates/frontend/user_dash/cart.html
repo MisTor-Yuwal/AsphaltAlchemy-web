@@ -3,5 +3,142 @@
 {% block title %} Cart - Asphalt Alchemy {% endblock %}
 
 {% block content %}
-    <h1 style="margin-left: 50%;">cart page</h1>
+    <div class="user-cart-container">
+        <div class="user-cart-section">
+            <div class="triangle">
+            </div>
+            <div class="user-cart-product-list-section">
+                <div class="user-cart-product-cart-heading">
+                    <span class="font user-cart-heading-text">
+                        Shopping cart
+                    </span>
+                </div>
+                
+                <div class="user-cart-product-scrollable-list">
+                    <div class="user-cart-product-scrollable">
+                    {% if not cart_items %}
+                        <span  class=" wdxl-lubrifont-tc-regular">Nothing in your cart</span>
+                    {% else %}
+                        {% for pro in cart_items %}
+                            <div class="cart-product-list-product">
+                                <div class="product-list-product-img-div">
+                                    <div class="product-list-img-preview">
+                                        <img class="cart-img-preview-img" src="{{ url_for('static', filename='uploads/' ~ pro.product.image[0].file_name) }}" alt="">
+                                    </div>
+                                </div>
+                                <div class="product-list-detail-for-cart">
+                                    <span class="users-cart-page-product-name-text font">
+                                        {{ pro.product.productName }}
+                                    </span>
+                                    <span class="users-cart-page-product-color font">
+                                        Color : {{ pro.product.productColor }}, size {% if  pro.size %}{{pro.size}}{% else %} Size not found  {% endif %}
+                                    </span>
+                                    <span class="users-cart-page-product-quantity font">
+                                        Qty. {{ pro.quantity }}
+                                    </span>
+                                </div>
+                                <div class="product-list-detail-price">
+                                    <span class="users-cart-page-product-price wdxl-lubrifont-tc-regular">
+                                    Rs : {{ pro.product.productPrice }}
+                                    </span>
+                                    <span class="remove-button-for-users-cart">
+                                        <form action="{{ url_for('user_view.remove_from_cart', cart_id=pro.id) }}" method="POST" style="display:inline;">
+                                            {{ milap.hidden_tag() }}
+                                            <button type="submit" style="border:none; background:none; color:#000;">remove</button>
+                                        </form>
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+  
+            </div>
+            <div class="user-cart-checkout-section">
+                <div class="users-cart-page-users-detail">
+                    <span class="cart-page-users-name wdxl-lubrifont-tc-regular">
+                        {{ current_user.f_name }} {{ current_user.l_name }}
+                    </span> 
+                    <span class="cart-page-users-delivery-location wdxl-lubrifont-tc-regular">
+                        {{ current_user.delivery_location.street }} 
+                    </span>
+                     <span class="cart-page-users-delivery-location wdxl-lubrifont-tc-regular">
+                        {{ current_user.delivery_location.city }} - {{ current_user.delivery_location.ward }}, {{ current_user.delivery_location.district }} 
+                    </span> 
+                    <span class="cart-page-users-delivery-location wdxl-lubrifont-tc-regular">
+                        {{ current_user.delivery_location.state }} 
+                    </span>
+                </div>
+                <div class="users-cart-page-extra-detail">
+                </div>
+                 <div class="users-cart-page-extra-detail">
+                    <span class="wdxl-lubrifont-tc-regular">
+                        > Payment: <button id="paymentLink" class="wdxl-lubrifont-tc-regular">click me!</button>
+                    </span>
+                </div>
+                <div class="users-cart-page-price-detail">
+                    <div class="total-section">
+                        <span class="cart-page-subtotal wdxl-lubrifont-tc-regular">
+                            Subtotal ({{ totalitem }})
+                        </span>
+                         <span class="cart-page-shipping wdxl-lubrifont-tc-regular">
+                            Shipping cost
+                        </span>
+                         <span class="cart-page-discount wdxl-lubrifont-tc-regular">
+                            Discount
+                        </span>
+                    </div>
+                    <div class="total-price">
+                        <span class="cart-page-totalprice wdxl-lubrifont-tc-regular">
+                            Rs {{ totalPrice }}
+                        </span>
+                         <span class="cart-page-shippingcharge wdxl-lubrifont-tc-regular">
+                            Free
+                        </span>
+                         <span class="cart-page-discount wdxl-lubrifont-tc-regular">
+                            -
+                        </span>
+                    </div>
+                </div>
+                <div class="users-cart-page-checkout-button">
+                    <div class="checkout-section-total">
+                        <span class="checkout-total wdxl-lubrifont-tc-regular">
+                            Total 
+                        </span>
+                        <span class="checkout-total-price wdxl-lubrifont-tc-regular">
+                           Rs  {{ totalPrice }} 
+                        </span>
+                    </div>
+                    <div class="checkout-section-checkoutbutton">
+                        <form action="{{ url_for('user_view.checkout') }}" method="post">
+                            {{ milap.hidden_tag() }}
+                            <button id="checkoutBtn" type="submit">Checkout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!-- <div class="overlay" id="overlay"> -->
+            <div class="qrpopupmaincont" id="qrPopupMainCont">
+                <div class="qrpopup" id="QRPopup">
+                    <button class="CloseQrpopup" id="CloseQrpopup" >X</button>
+                    <div class="qrimg-cont">
+                        <div class="qrimg-inner-cont">
+                            <img class="QRIMAG" src="{{ url_for('static', filename='images/QRPayment.jpeg') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="qrpar-cont">
+                        <span class="wdxl-lubrifont-tc-regular qrpar">
+                            Before checking out please pay the sum by scanning the QR code above
+                            and send us the screenshot via <a href="https://www.instagram.com/asphalt_alchemy_/#:~:text=Message" class="wdxl-lubrifont-tc-regular qrlink">instagram</a> along with your username.
+                        </span>
+                    </div>
+                </div>
+            </div>
+       <!-- </div> -->
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 {% endblock %}

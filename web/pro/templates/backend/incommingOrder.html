@@ -9,12 +9,228 @@
     <div class="order-content">
         <div class="scrollable-order-container">
             <div class="order-grid">
-                {% for product in products %}
+                {% for order in orders %}
                     <div class="order-card">
-                        {{ product.productName }}
+                        <div class="left-div"></div>
+                        <div class="admin-order-page-users-detail">
+                            <div class="admin-order-page-orderid-user-name">
+                                <span class="order-page-order-from wdxl-lubrifont-tc-regular  incoming-order-text">
+                                Order ID: {{ order.order_id}}
+                                </span>
+                                <span class="order-from-users-name  wdxl-lubrifont-tc-regular incoming-order-text">
+                                    Order from : {{order.user.f_name}} {{ order.user.l_name }}
+                                </span>
+                            </div>
+                            <div class="admin-order-page-user-links">
+                                <div class="admin-order-page-view-details">
+                                    <button type="submit" class="wdxl-lubrifont-tc-regular view-details-btn" data-order-id = "{{ order.order_id }}">view details</button>
+                                </div>
+                                <div class="admin-order-page-view-details-status-section">
+                                    <form action="{{ url_for('admin_view.order') }}" method="post" class="form-div">
+                                        {{ order_forms[order.order_id].hidden_tag() }}
+                                        {{ order_forms[order.order_id].orderID }}
+                                        <div class="statusSelectField" id="statusSelectField">
+                                            {{ order_forms[order.order_id].status }} 
+                                        </div>
+                                        <div class="statusUpdateCont">
+                                            {{  order_forms[order.order_id].update() }}
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="admin-order-page-extra-detail">
+                            <span class="admin-order-page-extra-detail-delivery-location  wdxl-lubrifont-tc-regular incoming-order-text">
+                                Delivery location:
+                            </span>
+                            <span class="wdxl-lubrifont-tc-regular incoming-order-text">
+                                {{order.user.delivery_location.street }}
+                            </span>
+                            <span class="wdxl-lubrifont-tc-regular incoming-order-text">
+                                {{order.user.delivery_location.city }} - {{ order.user.delivery_location.ward}} , {{order.user.delivery_location.district}}
+                            </span>
+                            <span class="wdxl-lubrifont-tc-regular incoming-order-text">
+                                {{order.user.delivery_location.state}}
+                            </span>
+                        </div>
                     </div>
                 {% endfor %}
+            </div>
+            <div class="order-details-popup" id="orderDetailsPopup">
+               <div class="order-details-popup-inner-cont">
+                    <div class="order-details-popup-first-section">
+                        <div class="triangle"></div>
+                        <div class="order-from-user-detail">
+                            <span class="wdxl-lubrifont-tc-regular" id="viewDetailsInnerOrderFrom">
+
+                            </span>
+                        </div>
+                        <div class="order-from-products">
+                            <div class="order-from-products-list">
+                                <div class="order-from-products-scrollable-list">
+                                    <div class="order-card-for-details" id="adminOrderListCardTemplate">
+                                        <div class="details-img-preview">
+                                            <div class="details-img-block" id="detailsImgBlock">
+                                            </div>
+                                        </div>
+                                        <div class="details-product-details" id="detailsProductDetails">
+                                            <div class="admin-product-detail-product-name-specification" id="adminProductDetailProductNameSpecification">
+
+                                            </div>
+                                            <div class="admin-product-detail-product-quantity">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="details-product-price">
+                                        </div>
+                                    </div>
+                                    <div class="adminOrderListCardContainer" id="adminOrderListCardContainer">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-details-popup-second-section">
+                        <button id="closeViewDetailBtn" class="closeViewDetailBtn">X</button>
+                        <div class="user-order-detail-section-for-view-details">
+                            <div class="user-order-detail-inner-section" id="userOrderDetailInnerSection">
+
+                            </div>
+                        </div>
+                        <div class="user-order-extra-detail-section-for-view-details">
+
+                        </div>
+                        <div class="user-subtotal-section-for-view-details">
+                            <div class="user-subtotal-section-for-view-details-first-section" id="userSubtotalSectionForViewDetailsFirstSection">
+
+                            </div>
+                             <div class="user-subtotal-section-for-view-details-second-section" id="userSubtotalSectionForViewDetailsSecondSection">
+                                
+                            </div>
+                        </div>
+                        <div class="user-total-section-for-view-details" id="userTotalSectionForViewDetails">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
+
+{% block script %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const viewDetailsPopup = document.getElementById('orderDetailsPopup');
+    const viewDetailBtn = document.querySelectorAll('.view-details-btn');
+    const closeBtn = document.getElementById('closeViewDetailBtn');
+
+    viewDetailBtn.forEach(btn => {
+        btn.addEventListener('click',() => {
+            const orderID = btn.getAttribute('data-order-id');
+            const testSpan = document.getElementById('adminProductDetailProductName');
+           
+            fetch(`/admin/order/${orderID}/details`)
+                .then(response => response.json())
+                .then(data => {
+                    const user = data.user;
+                    const deliveryLocation = data.user.delivery_location;
+                    const items = data.items;
+                    const userName = document.getElementById('viewDetailsInnerOrderFrom');
+
+                    userName.innerText = `Order from : ${data.user.f_name} ${data.user.l_name}`
+
+
+                    const template = document.getElementById('adminOrderListCardTemplate');
+                    const container = document.getElementById('adminOrderListCardContainer');
+
+                    container.innerHTML = '';
+
+                    items.forEach(item  => {
+                        const clone = template.cloneNode(true);
+                        clone.style.display = 'flex';
+                        clone.removeAttribute('id');
+
+                        const nameSpec = clone.querySelector('#adminProductDetailProductNameSpecification');
+                        nameSpec.innerHTML = `<span class="wdxl-lubrifont-tc-regular productName">${item.product_name}</span>
+                        <span class="wdxl-lubrifont-tc-regular viewDetailColorSize">color : ${item.product_color}, Size ${item.product_size}</span>`;
+
+                        const itemImage = clone.querySelector('#detailsImgBlock');
+                        const baseURL = "{{ url_for('static', filename='uploads/') }}";
+                        itemImage.innerHTML = `<img src="${baseURL}${item.product_image}" class="viewDetailsListImg"  >`;
+
+                        const quantityCont = clone.querySelector('.admin-product-detail-product-quantity');
+                        quantityCont.innerHTML = `<span class="wdxl-lubrifont-tc-regular viewDetailQuantity">Qty : ${item.product_quantity}</span>`;
+                        
+                        const priceCont = clone.querySelector('.details-product-price');
+                        priceCont.innerHTML = `<span class="wdxl-lubrifont-tc-regular viewDetailPrice">Rs : ${item.product_price} </span>`;
+
+                        container.appendChild(clone);
+
+                    })
+
+                    const userDetailDP = document.getElementById('userOrderDetailInnerSection');
+                    userDetailDP.innerHTML = '';
+
+                    userDetailDP.innerHTML = `
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFont">${user.phone}</span>
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFont">${user.email}</span>
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFont">${deliveryLocation.street}</span>
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFont">${deliveryLocation.city} - ${deliveryLocation.ward}, ${deliveryLocation.district}</span>
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFont">${deliveryLocation.state}</span>
+                    `;
+
+                    const subTotalSection = document.getElementById('userSubtotalSectionForViewDetailsFirstSection');
+                    subTotalSection.innerHTML = '';
+
+                    subTotalSection.innerHTML = `<span class="wdxl-lubrifont-tc-regular viewDetailFonts">Subtotal : </span>
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFonts">Shipping cost : </span>
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFonts">Discount :  </span>
+                    `;
+
+                    const subTotalData = document.getElementById('userSubtotalSectionForViewDetailsSecondSection');
+                    subTotalData.innerHTML = '';
+
+                    subTotalData.innerHTML = `
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFonts"> ${data.total_price} </span>
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFonts"> Free </span>
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFonts"> - </span>
+                    `;
+
+                    const totalSectionForViewDetails = document.getElementById('userTotalSectionForViewDetails');
+                    totalSectionForViewDetails.innerHTML = '';
+
+                    totalSectionForViewDetails.innerHTML = `
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFonts"> Total </span>
+                    <span class="wdxl-lubrifont-tc-regular viewDetailFonts"> ${data.total_price} </span>
+                    `;
+
+
+                    closeBtn.addEventListener('click', () => {
+                        viewDetailsPopup.classList.remove('slide-in');
+                        viewDetailsPopup.classList.add('slide-out');
+
+                        setTimeout(() => {
+                            viewDetailsPopup.style.display = 'none';
+                            viewDetailsPopup.classList.remove('slide-out');
+                        }, 500);
+                    });
+
+                
+                });
+                viewDetailsPopup.classList.remove('slide-out');
+                viewDetailsPopup.classList.add('slide-in');
+                viewDetailsPopup.style.display = 'block';
+        });
+    });
+});
+
+   
+</script>
+{% endblock %}
+ 
+<span class="admin-product-detail-product-name wdxl-lubrifont-tc-regular adminProductDetailProductName">
+
+</span>

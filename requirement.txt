@@ -5,3 +5,5 @@ pip install werkzeug
 pip install flask-wtf
 pip install email_validator
 pip install mysqlclient
+https://dev.mysql.com/downloads/repo/apt/  or mariadb
+pip install flask-socketio eventlet

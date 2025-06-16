@@ -4,11 +4,103 @@
 
 {% block content %}
     <div class="order-main-container">
-        <div class="scrollable-order-grid">
-            <div class="myorder">
-
+        <div class="myorder">
+            <div class="scrollable-order-grid">
+                <div class="myorder-container-heading">
+                    <span class="wdxl-lubrifont-tc-regular myOrderContHead">
+                        My Orders
+                    </span>
+                </div>
+                <div class="myorder-scrollabel-section">
+                    <div class="myorder-grid-sec">
+                        {% for order in orders %}
+                            <div class="myorder-card">
+                                <div class="myorder-card-front-div">
+                                </div>
+                                <div class="myorder-card-user-and-product-info">
+                                   <div class="darkorchid">
+                                        <span class="wdxl-lubrifont-tc-regular productName-for-myordercard">
+                                            Order ID : {{order.order_id}}
+                                        </span>
+                                   </div>
+                                   <div class="buttonAndOtherfuckingThings">
+                                        <div class="button-view-details-myorder">
+                                            <button type="submit"  class="myorder-card-viewdetail-btn" data-order-id="{{ order.order_id }}">view details</button>
+                                        </div>
+                                        <div class="extra-fucking-details">
+                                            <span class="wdxl-lubrifont-tc-regular statusText">
+                                                Status : {{order.status}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="myorder-card-main-info-sec">
+                                    <span class="wdxl-lubrifont-tc-regular delivery-location-heading">DL :</span>
+                                    <span class="wdxl-lubrifont-tc-regular myorder-card-deliverylocation-text">{{ current_user.delivery_location.street }}</span>
+                                    <span class="wdxl-lubrifont-tc-regular myorder-card-deliverylocation-text">{{ current_user.delivery_location.city }} - {{ current_user.delivery_location.ward }}</span>
+                                    <span class="wdxl-lubrifont-tc-regular myorder-card-deliverylocation-text">{{ current_user.delivery_location.district }}</span>
+                                    <span class="wdxl-lubrifont-tc-regular myorder-card-deliverylocation-text">{{ current_user.delivery_location.state }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-            
+            <div class="order-second-section-for-user">
+            </div>
+        </div>
+        <div class="myorder-poup-main" id="myOrderPopupSection">
+            <div class="myorder-popup-section">
+                <div class="first-section-myorder-popup">
+                    <div class="myorder-items-heading-sc">
+                        <span class="wdxl-lubrifont-tc-regular myorder-items-heading-text">
+                            My items
+                        </span>
+                    </div>
+                    <div class="myorder-items-grid">
+                        <div class="myorder-items-card" id="myOrderItemTemplate" style="display: none;">
+                            <div class="myorder-item-card-img-section">
+                                <div class="myorder-item-card-img-inner-sec" >
+
+                                </div>
+                            </div>
+                            <div class="myorder-item-card-product-details">
+                                <div class="myorder-item-card-product-details-first">
+
+                                </div>
+                                <div class="myorder-item-card-product-details-second">
+                                    
+                                </div>
+                            </div>
+                            <div class="myorder-item-card-product-extra-details">
+
+                            </div>
+                        </div>
+                        <div class="myOrderItemCardContainer" id="myOrderItemCardContainer">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="second-section-myorder-popup">
+                    <button id="myOrderClosePopup">X</button>
+                    <div class="second-section-first-section">
+
+                    </div>
+                    <div class="second-section-second-section">
+                        
+                    </div>
+                    <div class="second-section-third-section">
+                        <span class="wdxl-lubrifont-tc-regular myorder-fucking-total-price" id="myorder-fucking-total-price">
+                        </span>
+                    </div>
+                    <div class="second-section-fourth-section">
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 {% endblock %}
